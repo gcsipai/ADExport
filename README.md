@@ -1,230 +1,163 @@
-ADExport - Active Directory Export Tool
-https://img.shields.io/badge/Python-3.8+-blue.svg
-https://img.shields.io/badge/License-MIT-green.svg
-https://img.shields.io/badge/Version-Beta%25201.1-orange.svg
+📋 Program Célja
+Az ADExport egy grafikus felületű alkalmazás, amely Active Directory (AD) környezetből való adatExportálásra szolgál. A program lehetővé teszi a felhasználók, szervezeti egységek (OU-k) és csoportok strukturált exportálását CSV fájlokba.
 
-A modern, user-friendly graphical application for exporting Active Directory data to CSV files with multi-language support and dark/light themes.
+🎯 Fő Funkciók
+1. Active Directory Kapcsolat
+Távoli és lokális kapcsolat: DC szerverekhez való kapcsolódás IP cím vagy hostnév alapján
 
-🌟 Features
-🔌 Connection Management
-Automatic DC Detection - Local Domain Controller auto-discovery
+Automatikus felderítés: Lokális Domain Controller automatikus észlelése
 
-Flexible Connectivity - Remote and local AD connections
+Több hitelesítési mód: SSL/TLS támogatással
 
-SSL/TLS Support - Secure encrypted connections
+Port konfigurálás: Alapértelmezett (389) és SSL portok (636)
 
-Multiple Port Support - Standard (389) and SSL (636) ports
+2. AdatExportálási Opciók
+Felhasználók és OU-k Exportálása
+Felhasználói adatok:
 
-📊 Data Export Capabilities
-Users & Organizational Units - Complete user and OU structure export
+Felhasználónév (sAMAccountName)
 
-Groups & Members - Group information with member lists
+Teljes név (CN)
 
-User Status Filtering - Filter by enabled/disabled/all users
+Keresztnév és vezetéknév
 
-Comprehensive Attributes - Export all essential AD attributes
+Email cím
 
-🎨 User Experience
-Multi-language Support - Hungarian and English interfaces
+Mobil telefonszám
 
-Dark/Light Themes - System-aware theme switching
+Leírás
 
-Modern GUI - Built with CustomTkinter for sleek appearance
+Distinguished Name (DN)
 
-Real-time Status - Live progress and status updates
+Fiók állapota (engedélyezett/letiltott)
 
-💾 Output Features
-CSV Format - Standardized semicolon-delimited files
+Szervezeti egységek (OU-k):
 
-UTF-8 Encoding - Full international character support
+OU neve
 
-Custom Filenames - User-defined export file names
+Distinguished Name
 
-Structured Data - Well-organized, readable output
+Csoportok Exportálása
+Csoport neve és leírása
 
-📥 Installation
-Prerequisites
-Python 3.8 or higher
+Csoport tagjainak listája
 
-Active Directory environment access
+Distinguished Name
 
-Read permissions in AD
+3. Szűrési Lehetőségek
+Felhasználói Állapot Szűrő
+Összes felhasználó - minden felhasználó függetlenül állapotától
 
-Dependencies
-bash
-pip install customtkinter ldap3
-Quick Start
+Csak engedélyezett felhasználók - aktív fiókok
 
-DC IP/Hostname
+Csak letiltott felhasználók - inaktív fiókok
 
-Port (389 for standard, 636 for SSL)
+🛠 Technikai Háttere
+Használt Technológiák
+Python 3 - programozási nyelv
 
-Base DN (automatically detected for local DC)
+LDAP3 könyvtár - Active Directory kommunikáció
 
-Bind DN with read permissions
+CustomTkinter - modern grafikus felület
 
-Password
+CSV modul - adatExportálás
 
-Select Export Options:
+LDAP Lekérdezések
+A program a következő LDAP szűrőket használja:
 
-☑️ Users/OUs - Export users and organizational units
+(objectClass=user) - felhasználók
 
-☑️ Groups/Members - Export groups with their members
+(objectClass=organizationalUnit) - OU-k
 
-🔽 User Status Filter - Choose between All, Enabled, or Disabled users
+(objectClass=group) - csoportok
 
-Start Export:
+userAccountControl attribútum - fiók állapot ellenőrzése
 
-Click "Start Export"
+👥 Célközönség és Használati Területek
+Rendszergazdák
+Felhasználói lista generálás - teljes felhasználói nyilvántartás
 
-Choose save location for CSV files
+Fiók állapot ellenőrzés - letiltott fiókok azonosítása
 
-Review exported data
+Szervezeti struktúra dokumentálás - OU hierarchia exportálása
 
-Advanced Features
-SSL/TLS Encryption: Enable for secure connections
+Biztonsági Audit
+Hozzáférési jogosultságok nyomon követése - csoporttagságok exportálása
 
-Automatic Detection: Local DC and Base DN auto-discovery
+Compliance reporting - regulatív követelmények teljesítése
 
-Language Switching: Toggle between Hungarian and English
+Naplózás - historikus adatok rögzítése
 
-Theme Selection: Switch between dark and light modes
+AdatMigráció és Átállás
+RendszerMigráció előkészítés - adatok exportálása új rendszerbe
 
-🗂️ Export Structure
-Users and OUs CSV
-Column	Description	Example
-ObjektumTípus	Object type (User/OU)	Felhasználó
-Állapot	Account status	Engedélyezett
-Név	Full name	John Smith
-Felhasználónév	sAMAccountName	jsmith
-Keresztnév	Given name	John
-Vezetéknév	Surname	Smith
-Email	Email address	jsmith@company.com
-Mobil	Mobile number	+123456789
-Leírás	Description	IT Department
-DN	Distinguished Name	CN=John Smith,OU=Users,DC=company,DC=com
-Groups CSV
-Column	Description	Example
-Név	Group display name	Administrators
-Csoportnév	sAMAccountName	Domain Admins
-Leírás	Group description	Full administrative access
-DN	Distinguished Name	CN=Domain Admins,OU=Groups,DC=company,DC=com
-Tagok DN-jei	Member DNs	CN=John Smith,OU=Users,DC=company,DC=com; CN=Jane Doe,OU=Users,DC=company,DC=com
-🔧 Configuration
-Supported LDAP Attributes
-Users: sAMAccountName, cn, givenName, sn, mail, distinguishedName, description, mobile, userAccountControl
+Adatátvitel - külső alkalmazásokba való importáláshoz
 
-Groups: cn, sAMAccountName, description, distinguishedName, member
+Backup - fontos AD információk biztonsági mentése
 
-OUs: distinguishedName, ou
+💼 Gyakorlati Alkalmazási Példák
+1. HR Reporting
+Dolgozói lista generálása részlegek szerint
 
-Filter Options
-All Users: Export all user accounts
+Új alkalmazottak nyilvántartása
 
-Enabled Only: Active user accounts
+Kilépő munkavállalók listája
 
-Disabled Only: Inactive user accounts
+2. IT Support
+Helpdesz számára felhasználói alapadatok
 
-🎯 Use Cases
-🏢 System Administration
-User inventory management
+Csoporttagságok ellenőrzése jogosultsági problémáknál
 
-Account status auditing
+Telepítési listák készítése
 
-Organizational structure documentation
+3. Biztonsági Csoport
+Biztonsági csoportok tagjainak listája
 
-🔒 Security & Compliance
-Access right reviews
+Jogosultsági vizsgálatok
 
-Security group analysis
+Compliance auditok támogatása
 
-Compliance reporting
+🔧 Előnyök
+Egyszerűség
+Grafikus felület - nem igényel programozási ismereteket
 
-Audit preparation
+Automatikus beállítások - lokális DC automatikus felismerése
 
-📈 HR & Management
-Employee directory generation
+Intuitív kezelés - felhasználóbarát elrendezés
 
-Department structure analysis
+Rugalmasság
+Többnyelvűség - magyar és angol nyelv támogatása
 
-Onboarding/offboarding tracking
+Téma választás - sötét/világos megjelenés
 
-🔄 Migration & Integration
-System migration preparation
+Részleges export - csak kiválasztott elemek exportálása
 
-Data synchronization
+Biztonság
+SSL/TLS titkosítás támogatása
 
-External system integration
+Időtúllépések beállítása
 
-🌍 Multi-language Support
-Hungarian (Magyar)
-Complete Hungarian interface
+Hibakezelés és validáció
 
-Localized status messages
+📊 Kimeneti Formátum
+Felhasználók CSV
+csv
+ObjektumTípus;Állapot;Név;Felhasználónév;Keresztnév;Vezetéknév;Email;Mobil;Leírás;DN
+Csoportok CSV
+csv
+Név;Csoportnév;Leírás;DN;Tagok DN-jei
+🚀 Jövőbeli Fejlesztési Lehetőségek
+További nyelvi támogatások
 
-Hungarian CSV headers
+Speciális szűrési feltételek
 
-English
-Full English localization
+Exportálás JSON és XML formátumba
 
-International standards
+Kötegelt feldolgozás
 
-English CSV headers
+Jelentéskészítő modul
 
-🛠️ Technical Details
-Built With
-Python 3 - Core programming language
+API integráció
 
-CustomTkinter - Modern GUI framework
+Az ADExport tehát egy komplett Active Directory adatkezelő megoldás, amely leegyszerűsíti a rendszergazdák számára az AD-beli információk exportálását és feldolgozását.
 
-LDAP3 - Active Directory communication
-
-SSL/TLS - Secure connection handling
-
-LDAP Queries
-python
-# User filter
-BASE_USER_FILTER = '(&(objectClass=user)(!(objectClass=computer)))'
-
-# OU filter  
-OU_FILTER = '(objectClass=organizationalUnit)'
-
-# Group filter
-GROUP_FILTER = '(objectClass=group)'
-📋 System Requirements
-Operating System: Windows 10/11, Windows Server 2012+
-
-Python: Version 3.8 or higher
-
-Permissions: Read access to Active Directory
-
-Network: Connectivity to Domain Controller
-
-🤝 Contributing
-We welcome contributions! Please feel free to submit pull requests, report bugs, or suggest new features.
-
-Development Setup
-Fork the repository
-
-Create a feature branch
-
-Make your changes
-
-Test thoroughly
-
-Submit a pull request
-
-📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-⚠️ Disclaimer
-This tool is designed for authorized administrative use only. Ensure you have proper permissions before exporting Active Directory data. The developers are not responsible for any misuse or damage caused by this application.
-
-🆘 Support
-For issues and questions:
-
-Check the existing GitHub issues
-
-Create a new issue with detailed description
-
-Include error messages and steps to reproduce
